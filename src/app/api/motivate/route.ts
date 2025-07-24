@@ -7,14 +7,15 @@ const openai = new OpenAI({
 
 export async function POST(req: Request) {
   const body = await req.json()
-  const { name, height, weight, goal, limitations } = body
+  const { name, height, weight, goal, limitations, planLength } = body
 
   const prompt = `
 You are a motivating fitness assistant. The user's name is ${name}, height is ${height}, weight is ${weight}, goal is ${goal.replace("_", " ")}, and limitations are ${limitations || "none"}.
 
 Provide a personalized fitness plan with:
 - A recommended activity tailored to the user's goal and limitations.
-- A 7-day weekly workout plan summary.
+- A ${planLength}-day workout plan summary.
+
 - A short motivational message.
 
 Respond in this strict JSON format (no extra text):

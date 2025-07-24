@@ -3,13 +3,13 @@
 import { useState } from "react"
 import UserForm from "./components/UserForm"
 
-// Define the shape of user data explicitly
 interface UserData {
   name: string
   height: number | string
   weight: number | string
   goal: string
   limitations?: string
+  planLength?: string
 }
 
 export default function Home() {
@@ -19,18 +19,19 @@ export default function Home() {
   const [weeklyPlan, setWeeklyPlan] = useState("")
   const [loading, setLoading] = useState(false)
   const [showMealQuestion, setShowMealQuestion] = useState(false)
-  const [mealPlan, setMealPlan] = useState("")
+  const [showMealFetchButton, setShowMealFetchButton] = useState(false)
+  const [mealPlan, setMealPlan] = useState<string[]>([])
   const [showStartOver, setShowStartOver] = useState(false)
 
-  // Use UserData instead of any for the data param
   const handleUserSubmit = async (data: UserData) => {
     setUserData(data)
     setLoading(true)
     setMotivation("")
     setActivity("")
     setWeeklyPlan("")
-    setMealPlan("")
+    setMealPlan([])
     setShowMealQuestion(false)
+    setShowMealFetchButton(false)
     setShowStartOver(false)
 
     try {
@@ -53,13 +54,20 @@ export default function Home() {
     }
   }
 
-  const handleMealChoice = async (choice: "yes" | "no") => {
+  // Step 1: Does user want a meal plan?
+  const handleMealChoice = (choice: "yes" | "no") => {
     setShowMealQuestion(false)
     if (choice === "no") {
       setShowStartOver(true)
       return
     }
+    setShowMealFetchButton(true)
+  }
 
+  // Step 2: Fetch the meal plan on demand
+  const fetchMealPlan = async () => {
+    if (!userData) return
+    setLoading(true)
     try {
       const res = await fetch("/api/mealprep", {
         method: "POST",
@@ -68,11 +76,21 @@ export default function Home() {
       })
 
       const result = await res.json()
-      setMealPlan(result.mealPlan)
+
+      // Assuming result.mealPlan is a string with days separated by new lines or "Day X:" labels
+      // Parse and split it for display:
+      const lines = result.mealPlan
+        .split(/\n|Day \d+:?/)
+        .map((line: string) => line.trim())
+        .filter((line: string) => line.length > 0)
+
+      setMealPlan(lines)
     } catch (error) {
       console.error("Error fetching meal plan:", error)
-      setMealPlan("⚠️ Could not load meal plan.")
+      setMealPlan(["⚠️ Could not load meal plan."])
     } finally {
+      setLoading(false)
+      setShowMealFetchButton(false)
       setShowStartOver(true)
     }
   }
@@ -82,8 +100,9 @@ export default function Home() {
     setMotivation("")
     setActivity("")
     setWeeklyPlan("")
-    setMealPlan("")
+    setMealPlan([])
     setShowMealQuestion(false)
+    setShowMealFetchButton(false)
     setShowStartOver(false)
   }
 
@@ -92,7 +111,7 @@ export default function Home() {
       {!userData ? (
         <UserForm onSubmit={handleUserSubmit} />
       ) : (
-        <div className="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-lg space-y-4 text-center">
+        <div className="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto bg-white p-8 md:p-10 lg:p-12 rounded-2xl shadow-xl space-y-6 text-center">
           <h1 className="text-3xl font-bold">Welcome, {userData.name}!</h1>
           <p className="text-lg">🎯 Goal: {userData.goal.replace("_", " ")}</p>
           <p>📏 Height: {userData.height}</p>
@@ -129,10 +148,24 @@ export default function Home() {
                 </>
               )}
 
-              {mealPlan && (
+              {showMealFetchButton && (
+                <div className="mt-4 text-left">
+                  <p className="mb-2 font-medium">Generating your {userData.planLength ?? "7"}-day meal plan... 🍲</p>
+                  <button
+                    onClick={fetchMealPlan}
+                    className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700"
+                  >
+                    Generate Meal Plan
+                  </button>
+                </div>
+              )}
+
+              {mealPlan.length > 0 && (
                 <div className="mt-4 text-left space-y-2">
                   <h2 className="text-lg font-semibold">🍽️ Meal Plan:</h2>
-                  <p>{mealPlan}</p>
+                  {mealPlan.map((line: string, idx: number) => (
+                    <p key={idx}><strong>Day {idx + 1}:</strong> {line}</p>
+                  ))}
                 </div>
               )}
 

@@ -9,6 +9,7 @@ interface UserData {
   height: string
   goal: string
   limitations: string
+  planLength: string
 }
 
 export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => void }) {
@@ -17,7 +18,8 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
     weight: "",
     height: "",
     goal: "",
-    limitations: ""
+    limitations: "",
+    planLength: ""
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -25,8 +27,22 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
   }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit(formData)
+  e.preventDefault()
+
+  const height = parseInt(formData.height)
+  const weight = parseInt(formData.weight)
+
+  if (isNaN(height) || height < 54 || height > 90) {
+    alert("Please enter a valid height between 54 and 90 inches. That seems like an unusual value.")
+    return
+  }
+
+  if (isNaN(weight) || weight < 85 || weight > 400) {
+    alert("Please consult with a physician before proceeding. This app may not provide safe advice for your current weight.")
+    return
+  }
+
+  onSubmit(formData)
   }
 
   return (
@@ -38,7 +54,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="Your Name"
         value={formData.name}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
         required
       />
 
@@ -48,7 +64,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="Weight (lbs or kg)"
         value={formData.weight}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
         required
       />
 
@@ -58,15 +74,26 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="Height (in or cm)"
         value={formData.height}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
         required
       />
 
       <select
+        name="planLength"
+        value={formData.planLength}
+        onChange={handleChange}
+        className="w-full p-3 border rounded-lg"
+        required
+      >
+        <option value="1">1 Day Plan</option>
+        <option value="7">7 Day Plan</option>
+        <option value="30">30 Day Plan</option>
+        </select>
+      <select
         name="goal"
         value={formData.goal}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
         required
       >
         <option value="">Select a Goal</option>
@@ -81,7 +108,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="e.g., knee injury, asthma, post-surgery recovery, wheelchair use"
         value={formData.limitations}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
         rows={3}
       />
 
