@@ -47,14 +47,14 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-2xl space-y-4">
-      <h2 className="text-2xl font-bold text-center">Welcome to MissionFit 💪</h2>
+      <h2 className="text-2xl font-bold text-center text-gray-900">Welcome to MissionFit 💪</h2>
 
       <input
         name="name"
         placeholder="Your Name"
         value={formData.name}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
         required
       />
 
@@ -64,7 +64,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="Weight (lbs or kg)"
         value={formData.weight}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
         required
       />
 
@@ -74,7 +74,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="Height (in or cm)"
         value={formData.height}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
         required
       />
 
@@ -93,7 +93,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         name="goal"
         value={formData.goal}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
         required
       >
         <option value="">Select a Goal</option>
@@ -108,11 +108,11 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="e.g., knee injury, asthma, post-surgery recovery, wheelchair use"
         value={formData.limitations}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-700"
+        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
         rows={3}
       />
 
-      <button type="submit" className="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
+      <button type="submit" className="w-full bg-indigo-900 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
         Start My Mission 🚀
       </button>
     </form>

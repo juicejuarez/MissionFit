@@ -113,7 +113,7 @@ export default function Home() {
       ) : (
         <div className="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto bg-white p-8 md:p-10 lg:p-12 rounded-2xl shadow-xl space-y-6 text-center">
           <h1 className="text-3xl font-bold">Welcome, {userData.name}!</h1>
-          <p className="text-lg">🎯 Goal: {userData.goal.replace("_", " ")}</p>
+          <p className="text-gray-900 text-lg">🎯 Goal: {userData.goal.replace("_", " ")}</p>
           <p>📏 Height: {userData.height}</p>
           <p>⚖️ Weight: {userData.weight}</p>
           <p>🩺 Limitations: {userData.limitations || "None"}</p>
@@ -123,9 +123,9 @@ export default function Home() {
           ) : (
             <>
               <div className="text-left space-y-2">
-                <p><strong>💡 Recommended Activity:</strong> {activity}</p>
-                <p><strong>📅 Weekly Workout Plan:</strong><br />{weeklyPlan}</p>
-                <p className="text-indigo-700 font-semibold">{motivation}</p>
+                <p className="text-gray-900 font-semibold"><strong>💡 Recommended Activity:</strong> {activity}</p>
+                <p className="text-gray-900 whitespace-pre-line"><strong>📅 Weekly Workout Plan:</strong><br />{weeklyPlan}</p>
+                <p className="text-indigo-900 font-semibold">{motivation}</p>
               </div>
 
               {showMealQuestion && (
