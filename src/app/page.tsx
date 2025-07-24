@@ -112,11 +112,11 @@ export default function Home() {
         <UserForm onSubmit={handleUserSubmit} />
       ) : (
         <div className="w-full max-w-md md:max-w-2xl lg:max-w-3xl mx-auto bg-white p-8 md:p-10 lg:p-12 rounded-2xl shadow-xl space-y-6 text-center">
-          <h1 className="text-3xl font-bold">Welcome, {userData.name}!</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Welcome, {userData.name}!</h1>
           <p className="text-gray-900 text-lg">🎯 Goal: {userData.goal.replace("_", " ")}</p>
-          <p>📏 Height: {userData.height}</p>
-          <p>⚖️ Weight: {userData.weight}</p>
-          <p>🩺 Limitations: {userData.limitations || "None"}</p>
+          <p className="text-gray-900">📏 Height: {userData.height}</p>
+          <p className="text-gray-900">⚖️ Weight: {userData.weight}</p>
+          <p className="text-gray-900">🩺 Limitations: {userData.limitations || "None"}</p>
 
           {loading ? (
             <p className="mt-4 text-indigo-600 font-medium">⏳ Generating your MissionFit plan...</p>
@@ -130,7 +130,7 @@ export default function Home() {
 
               {showMealQuestion && (
                 <>
-                  <p className="mt-4 font-medium">Would you like a meal plan suggestion for the week? 🍽️</p>
+                  <p className="mt-4 font-medium text-gray-900">Would you like a meal plan suggestion for the week? 🍽️</p>
                   <div className="flex justify-center gap-4 mt-2">
                     <button
                       onClick={() => handleMealChoice("yes")}
