@@ -54,17 +54,17 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="Your Name"
         value={formData.name}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
+        className="w-full p-3 border rounded-lg text-gray-900 placeholder:text-gray-900"
         required
       />
 
       <input
         name="weight"
         type="number"
-        placeholder="Weight (lbs or kg)"
+        placeholder="Weight (lbs)"
         value={formData.weight}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
+        className="w-full p-3 border rounded-lg text-gray-900 placeholder:text-gray-900"
         required
       />
 
@@ -74,7 +74,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="Height (in or cm)"
         value={formData.height}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
+        className="w-full p-3 border rounded-lg text-gray-900 placeholder:text-gray-900"
         required
       />
 
@@ -82,7 +82,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         name="planLength"
         value={formData.planLength}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg"
+        className="w-full p-3 border rounded-lg text-gray-900"
         required
       >
         <option value="1">1 Day Plan</option>
@@ -93,7 +93,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         name="goal"
         value={formData.goal}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
+        className="w-full p-3 border rounded-lg text-gray-900 placeholder:text-gray-900"
         required
       >
         <option value="">Select a Goal</option>
@@ -108,7 +108,7 @@ export default function UserForm({ onSubmit }: { onSubmit: (data: UserData) => v
         placeholder="e.g., knee injury, asthma, post-surgery recovery, wheelchair use"
         value={formData.limitations}
         onChange={handleChange}
-        className="w-full p-3 border rounded-lg placeholder:text-gray-900"
+        className="w-full p-3 border rounded-lg text-gray-900 placeholder:text-gray-900"
         rows={3}
       />
 
