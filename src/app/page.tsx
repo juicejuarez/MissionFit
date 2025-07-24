@@ -150,7 +150,7 @@ export default function Home() {
 
               {showMealFetchButton && (
                 <div className="mt-4 text-left">
-                  <p className="mb-2 font-medium">Generating your {userData.planLength ?? "7"}-day meal plan... 🍲</p>
+                  <p className="mb-2 font-medium text-gray-900">Generating your {userData.planLength ?? "7"}-day meal plan... 🍲</p>
                   <button
                     onClick={fetchMealPlan}
                     className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700"
@@ -162,7 +162,7 @@ export default function Home() {
 
               {mealPlan.length > 0 && (
                 <div className="mt-4 text-left space-y-2">
-                  <h2 className="text-lg font-semibold">🍽️ Meal Plan:</h2>
+                  <h2 className="text-lg font-semibold text-gray-900">🍽️ Meal Plan:</h2>
                   {mealPlan.map((line: string, idx: number) => (
                     <p key={idx}><strong>Day {idx + 1}:</strong> {line}</p>
                   ))}
