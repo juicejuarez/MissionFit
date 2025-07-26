@@ -108,6 +108,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-100 to-fuchsia-200 flex items-center justify-center p-4">
+      <div className="absolute top-4 right-4">
+        <a
+        href="/task"
+        className="bg-indigo-800 text-white px-4 py-2 rounded-lg hover:bg-indigo-900"
+        >
+        📝 To-Do List
+        </a>
+      </div>
       {!userData ? (
         <UserForm onSubmit={handleUserSubmit} />
       ) : (
